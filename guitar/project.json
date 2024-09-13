@@ -1,0 +1,14 @@
+{
+  "name": "guitar",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "guitar/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project guitar --web",
+  "targets": {
+    "build": {
+      "command": "sleep 4 && echo 'done'",
+      "cache": true
+    }
+  }
+}

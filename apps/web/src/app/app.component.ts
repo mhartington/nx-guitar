@@ -1,14 +1,22 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { Component, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { JsonPipe } from '@angular/common';
+import { guitar } from '@guitars/guitar';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [JsonPipe],
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <p>Mike plays {{ title()?.message | json }}</p>
+    <p>Other people play {{ guitarRef }}</p>
+  `,
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'web';
+  private http = inject(HttpClient);
+  public title = toSignal(this.http.get('/api'));
+  public guitarRef = guitar();
+  ngOnInit() {}
 }
